@@ -9,29 +9,28 @@ use std::{
 };
 
 fn main() {
-    let mut handles = Vec::new();
+    let mut handles = vec![];
     for i in 0..10 {
-        let handle = thread::spawn(move || {
+        handles.push(thread::spawn(move || {
             let start = Instant::now();
             thread::sleep(Duration::from_millis(250));
-            println!("Thread {i} done");
+            println!("thread {} is complete", i);
             start.elapsed().as_millis()
-        });
-        handles.push(handle);
+        }));
     }
 
-    let mut results = Vec::new();
+    let mut results: Vec<u128> = vec![];
     for handle in handles {
-        // TODO: Collect the results of all threads into the `results` vector.
-        // Use the `JoinHandle` struct which is returned by `thread::spawn`.
+        // TODO: a struct is returned from thread::spawn, can you use it?
+        results.push(handle.join().unwrap());
     }
 
     if results.len() != 10 {
-        panic!("Oh no! Some thread isn't done yet!");
+        panic!("Oh no! All the spawned threads did not finish!");
     }
 
     println!();
     for (i, result) in results.into_iter().enumerate() {
-        println!("Thread {i} took {result}ms");
+        println!("thread {} took {}ms", i, result);
     }
 }
