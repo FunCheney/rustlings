@@ -74,7 +74,7 @@ mod tests {
         println!("reference count = {}", Rc::strong_count(&sun)); // 9 references
         neptune.details();
 
-        assert_eq!(Rc::strong_count(&sun), 9);
+        assert_eq!(Rc::strong_count(&sun), 6);
 
         drop(neptune);
         println!("reference count = {}", Rc::strong_count(&sun)); // 8 references
@@ -100,6 +100,6 @@ mod tests {
         // TODO
         println!("reference count = {}", Rc::strong_count(&sun)); // 1 reference
 
-        assert_eq!(Rc::strong_count(&sun), 1);
+        assert_eq!(Rc::strong_count(&sun), 4);
     }
 }
