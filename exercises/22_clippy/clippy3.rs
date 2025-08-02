@@ -7,8 +7,9 @@ fn main() {
     let my_option: Option<&str> = None;
     // Assume that you don't know the value of `my_option`.
     // In the case of `Some`, we want to print its value.
-    if my_option.is_none() {
-        println!("{}", my_option.is_none());
+    match my_option {
+        Some(value) => println!("{value}"),  // Print value for Some
+        None => println!("{}", my_option.is_none()),  // Print boolean for None
     }
 
     let my_arr = &[
