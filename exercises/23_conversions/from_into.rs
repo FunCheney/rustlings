@@ -48,7 +48,7 @@ impl From<&str> for Person {
             .get(1)
             .unwrap_or(&"")
             .trim()
-            .parse::<usize>()
+            .parse::<u8>()
             .unwrap_or_default();
 
         // 如果 name 为空，返回默认值
