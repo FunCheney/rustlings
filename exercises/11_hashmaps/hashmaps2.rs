@@ -9,6 +9,7 @@
 // Mango, and Lychee).
 
 use std::collections::HashMap;
+use std::iter::FromIterator;
 
 #[derive(Hash, PartialEq, Eq, Debug)]
 enum Fruit {
@@ -29,9 +30,9 @@ fn fruit_basket(basket: &mut HashMap<Fruit, u32>) {
     ];
 
     for fruit in fruit_kinds {
-        // 如果水果不在 basket 中，才插入
         if !basket.contains_key(&fruit) {
-            basket.insert(fruit, 3); // 插入新水果，每种 3 个，确保 > 11 总数
+            // 新添加的水果，每种插入一个以上的数量
+            basket.insert(fruit, 3);
         }
     }
 }
