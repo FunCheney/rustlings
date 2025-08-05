@@ -8,49 +8,42 @@ enum DivisionError {
     NotDivisible,
 }
 
-// TODO: Calculate `a` divided by `b` if `a` is evenly divisible by `b`.
-// Otherwise, return a suitable error.
+// 实现 divide 函数
 fn divide(a: i64, b: i64) -> Result<i64, DivisionError> {
-    // 处理除数为零的情况
     if b == 0 {
         return Err(DivisionError::DivideByZero);
     }
-
-    // 处理整数溢出情况（i64::MIN / -1）
     if a == i64::MIN && b == -1 {
         return Err(DivisionError::IntegerOverflow);
     }
-
-    // 检查是否能整除
     if a % b != 0 {
         return Err(DivisionError::NotDivisible);
     }
-
-    // 安全执行除法（因为已经处理了所有边界情况）
     Ok(a / b)
 }
 
-// TODO: Add the correct return type and complete the function body.
-// Desired output: `Ok([1, 11, 1426, 3])`
+// 返回所有成功结果的 Vec，若有错误则返回 Err
 fn result_with_list() -> Result<Vec<i64>, DivisionError> {
     let numbers = [27, 297, 38502, 81];
-    let division_results: Result<Vec<_>, _> = numbers
-        .into_iter()
-        .map(|n| divide(n, 27))
-        .collect();
-    division_results
+    numbers
+        .iter()
+        .map(|&n| divide(n, 27))
+        .collect() // collect<Vec<i64>> if all Ok, else short-circuits with Err
 }
 
+// 返回每个元素的除法结果（Result）
 fn list_of_results() -> Vec<Result<i64, DivisionError>> {
     let numbers = [27, 297, 38502, 81];
     numbers
-        .into_iter()
-        .map(|n| divide(n, 27))
+        .iter()
+        .map(|&n| divide(n, 27))
         .collect()
 }
 
 fn main() {
-    // You can optionally experiment here.
+    // 可选试验区
+    println!("{:?}", result_with_list());
+    println!("{:?}", list_of_results());
 }
 
 #[cfg(test)]
@@ -92,3 +85,4 @@ mod tests {
         assert_eq!(list_of_results(), [Ok(1), Ok(11), Ok(1426), Ok(3)]);
     }
 }
+

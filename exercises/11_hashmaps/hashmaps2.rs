@@ -29,17 +29,9 @@ fn fruit_basket(basket: &mut HashMap<Fruit, u32>) {
     ];
 
     for fruit in fruit_kinds {
-        // TODO: Insert new fruits if they are not already present in the
-        // basket. Note that you are not allowed to put any type of fruit that's
-        // already present!
-        if fruit == Fruit::Apple {
-            basket.insert(Fruit::Apple, 4);
-        }else if fruit == Fruit::Mango {
-            basket.insert(Fruit::Mango, 2);
-        }else if fruit == Fruit::Lychee {
-            basket.insert(Fruit::Lychee, 5);
-        }else {
-            basket.insert(fruit, 2);
+        // 如果水果不在 basket 中，才插入
+        if !basket.contains_key(&fruit) {
+            basket.insert(fruit, 3); // 插入新水果，每种 3 个，确保 > 11 总数
         }
     }
 }
